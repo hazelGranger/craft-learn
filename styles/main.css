@@ -1,0 +1,40 @@
+body {
+  background: #f3f3f3 !important;
+}
+
+p {
+  margin: 2px 0;
+}
+
+fieldset.MuiFormControl-root {
+  margin-bottom: 20px;
+}
+
+*[draggable] {
+  cursor: move !important;
+}
+
+.gift-card {
+  width: 50vw;
+  height: 50vh;
+  background-color: aquamarine;
+  margin-left: 10%;
+  margin-top: 10vh;
+  background-image: url('https://next-assets.treesthatcount.co.nz/content/giftcertpreview/45d39d179534dfc0d6b0.jpg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.editor-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 3rem;
+}
+
+.container {
+  width: 500px;
+  border: 1px solid #ddd;
+  min-height: 320px;
+}
