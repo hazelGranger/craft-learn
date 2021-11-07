@@ -1,4 +1,4 @@
-import { useNode } from "@craftjs/core";
+import { useNode } from '@craftjs/core'
 import {
   Slider,
   FormControl,
@@ -7,10 +7,10 @@ import {
   RadioGroup,
   Radio,
   TextField,
-} from "@material-ui/core";
-import React, { useState, useEffect } from "react";
-import ContentEditable from "react-contenteditable";
-import ColorPicker from "material-ui-color-picker";
+} from '@material-ui/core'
+import React, { useState, useEffect } from 'react'
+import ContentEditable from 'react-contenteditable'
+import ColorPicker from 'material-ui-color-picker'
 
 export const Text = ({
   text,
@@ -29,17 +29,17 @@ export const Text = ({
   } = useNode((state) => ({
     selected: state.events.selected,
     dragged: state.events.dragged,
-  }));
+  }))
 
-  const [editable, setEditable] = useState(false);
+  const [editable, setEditable] = useState(false)
 
   useEffect(() => {
     if (selected) {
-      return;
+      return
     }
 
-    setEditable(false);
-  }, [selected]);
+    setEditable(false)
+  }, [selected])
 
   return (
     <div
@@ -53,8 +53,8 @@ export const Text = ({
         onChange={(e) =>
           setProp(
             (props) =>
-              (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, "")),
-            500
+              (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')),
+            500,
           )
         }
         tagName="p"
@@ -68,8 +68,8 @@ export const Text = ({
         }}
       />
     </div>
-  );
-};
+  )
+}
 
 const TextSettings = () => {
   const {
@@ -78,15 +78,15 @@ const TextSettings = () => {
     color,
     position,
     top,
-    left
+    left,
   } = useNode((node) => ({
     text: node.data.props.text,
     fontSize: node.data.props.fontSize,
     color: node.data.props.color,
     position: node.data.props.position,
     top: node.data.props.top,
-    left: node.data.props.left
-  }));
+    left: node.data.props.left,
+  }))
 
   return (
     <>
@@ -99,7 +99,7 @@ const TextSettings = () => {
             min={1}
             max={50}
             onChange={(_, value) => {
-              setProp((props) => (props.fontSize = value), 1000);
+              setProp((props) => (props.fontSize = value), 1000)
             }}
           />
         </FormControl>
@@ -111,7 +111,7 @@ const TextSettings = () => {
             name="background-color"
             value={color}
             onChange={(color) => {
-              setProp((props) => (props.color = color), 500);
+              setProp((props) => (props.color = color), 500)
             }}
           />
         </FormControl>
@@ -138,24 +138,32 @@ const TextSettings = () => {
           </RadioGroup>
         </FormControl>
       </div>
-      {position === "absolute" && (
+      {position === 'absolute' && (
         <div>
           <FormControl size="small" component="fieldset">
             <FormLabel component="legend">top</FormLabel>
             <TextField
               type="number"
-              inputProps={{ inputMode: "numeric", pattern: "[0-9]*", min: 0, max: 100  }}
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9]*',
+                min: 0,
+                max: 100,
+              }}
               value={top}
-              onChange={(e) =>
-                setProp((props) => (props.top = e.target.value))
-              }
+              onChange={(e) => setProp((props) => (props.top = e.target.value))}
             />
           </FormControl>
           <FormControl size="small" component="fieldset">
             <FormLabel component="legend">left</FormLabel>
             <TextField
               type="number"
-              inputProps={{ inputMode: "numeric", pattern: "[0-9]*",  min: 0, max: 100  }}
+              inputProps={{
+                inputMode: 'numeric',
+                pattern: '[0-9]*',
+                min: 0,
+                max: 100,
+              }}
               value={left}
               onChange={(e) =>
                 setProp((props) => (props.left = e.target.value))
@@ -165,21 +173,24 @@ const TextSettings = () => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
 export const TextDefaultProps = {
-  text: "Hi",
+  text: 'Hi',
   fontSize: 20,
-  color: "#000",
-  position: "relative",
+  color: '#000',
+  position: 'relative',
   top: 0,
   left: 0,
-};
+}
 
 Text.craft = {
   props: TextDefaultProps,
   related: {
     settings: TextSettings,
   },
-};
+  rules: {
+    canDrag: () => true,
+  },
+}
