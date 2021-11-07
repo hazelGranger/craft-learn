@@ -37,4 +37,5 @@ fieldset.MuiFormControl-root {
   width: 500px;
   border: 1px solid #ddd;
   min-height: 320px;
+  position: relative;
 }
