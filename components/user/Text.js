@@ -1,10 +1,17 @@
 import { useNode } from "@craftjs/core";
-import { Slider, FormControl, FormLabel } from "@material-ui/core";
+import {
+  Slider,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  RadioGroup,
+  Radio,
+} from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import ContentEditable from "react-contenteditable";
 import ColorPicker from "material-ui-color-picker";
 
-export const Text = ({ text, fontSize, textAlign, color, ...props }) => {
+export const Text = ({ text, fontSize, textAlign, color, position, ...props }) => {
   const {
     connectors: { connect, drag },
     selected,
@@ -41,7 +48,7 @@ export const Text = ({ text, fontSize, textAlign, color, ...props }) => {
           )
         }
         tagName="p"
-        style={{ fontSize: `${fontSize}px`, textAlign, color: `${color}` }}
+        style={{ fontSize: `${fontSize}px`, textAlign, color: `${color}`, position: position }}
       />
     </div>
   );
@@ -52,16 +59,18 @@ const TextSettings = () => {
     actions: { setProp },
     fontSize,
     color,
+    position
   } = useNode((node) => ({
     text: node.data.props.text,
     fontSize: node.data.props.fontSize,
     color: node.data.props.color,
+    position: node.data.props.position,
   }));
 
   return (
     <>
       <div>
-        <FormControl size="big" component="fieldset">
+        <FormControl size="small" component="fieldset">
           <FormLabel component="legend">Font size</FormLabel>
           <Slider
             value={fontSize || 7}
@@ -75,7 +84,7 @@ const TextSettings = () => {
         </FormControl>
       </div>
       <div>
-        <FormControl size="big" component="fieldset">
+        <FormControl size="small" component="fieldset">
           <FormLabel component="legend">color</FormLabel>
           <ColorPicker
             name="background-color"
@@ -86,6 +95,28 @@ const TextSettings = () => {
           />
         </FormControl>
       </div>
+      <div>
+        <FormControl size="small" component="fieldset">
+          <FormLabel component="legend">position</FormLabel>
+          <RadioGroup
+            defaultValue={position}
+            onChange={(e) =>
+              setProp((props) => (props.position = e.target.value))
+            }
+          >
+            <FormControlLabel
+              label="relative"
+              value="relative"
+              control={<Radio size="small" position="relative" />}
+            />
+            <FormControlLabel
+              label="absolute"
+              value="absolute"
+              control={<Radio size="small" position="absolute" />}
+            />
+          </RadioGroup>
+        </FormControl>
+      </div>
     </>
   );
 };
@@ -94,6 +125,7 @@ export const TextDefaultProps = {
   text: "Hi",
   fontSize: 20,
   color: "#000",
+  position: 'relative',
 };
 
 Text.craft = {
