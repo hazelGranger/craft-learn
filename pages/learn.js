@@ -1,18 +1,18 @@
-import { useNode } from '@craftjs/core';
-import React from 'react';
-import { Editor, Frame, Element, Canvas, Selector } from '@craftjs/core';
-import { Toolbox } from '../components/Toolbox';
-import { SettingsPanel } from '../components/SettingsPanel';
-import { Text } from '../components/user/Text';
+import { useNode } from '@craftjs/core'
+import React from 'react'
+import { Editor, Frame, Element, Canvas, Selector } from '@craftjs/core'
+import { Toolbox } from '../components/Toolbox'
+import { SettingsPanel } from '../components/SettingsPanel'
+import { DraggableText } from '../components/user/DraggableText'
 
 export default function App() {
   return (
     <div>
       <div className="editor-container">
         <Editor>
-          <Frame resolver={(Text)}>
+          <Frame resolver={DraggableText}>
             <Element is="div" id="my-ele" className="container" canvas>
-              <Text
+              <DraggableText
                 size="small"
                 text="It's me again!"
                 data-cy="frame-container-text"
@@ -26,5 +26,5 @@ export default function App() {
         </Editor>
       </div>
     </div>
-  );
+  )
 }

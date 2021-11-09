@@ -1,19 +1,20 @@
-import { useEditor, Element } from '@craftjs/core';
+import { useEditor, Element } from '@craftjs/core'
 import {
   Box,
   Typography,
   Grid,
   Button as MaterialButton,
-} from '@material-ui/core';
-import React from 'react';
+} from '@material-ui/core'
+import React from 'react'
 
-import { Button } from './user/Button';
-import { Card } from './user/Card';
-import { Container } from './user/Container';
-import { Text } from './user/Text';
+import { Button } from './user/Button'
+import { Card } from './user/Card'
+import { Container } from './user/Container'
+import { Text } from './user/Text'
+import { DraggableText } from './user/DraggableText'
 
 export const Toolbox = () => {
-  const { connectors } = useEditor();
+  const { connectors } = useEditor()
 
   return (
     <Box px={2} py={2}>
@@ -52,7 +53,21 @@ export const Toolbox = () => {
             ref={(ref) =>
               connectors.create(
                 ref,
-                <Element canvas is={Container} padding={20} />
+                <DraggableText text="Hi I am draggable text" />,
+              )
+            }
+            variant="contained"
+            data-cy="toolbox-text"
+          >
+            Draggable text
+          </MaterialButton>
+        </Grid>
+        <Grid container direction="column" item>
+          <MaterialButton
+            ref={(ref) =>
+              connectors.create(
+                ref,
+                <Element canvas is={Container} padding={20} />,
               )
             }
             variant="contained"
@@ -72,5 +87,5 @@ export const Toolbox = () => {
         </Grid>
       </Grid>
     </Box>
-  );
-};
+  )
+}
