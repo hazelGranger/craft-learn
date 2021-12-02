@@ -11,6 +11,7 @@ import {
 import React, { useState, useEffect } from 'react'
 import ContentEditable from 'react-contenteditable'
 import ColorPicker from 'material-ui-color-picker'
+import Draggable from 'react-draggable'
 
 export const DraggableText = ({
   text,
@@ -48,39 +49,26 @@ export const DraggableText = ({
       ref={(ref) => connect(drag(ref))}
       onClick={() => selected && setEditable(true)}
     >
-      <ContentEditable
-        html={text}
-        disabled={!editable}
-        onChange={(e) =>
-          setProp(
-            (props) =>
-              (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')),
-            500,
-          )
-        }
-        tagName="p"
-        style={{
-          fontSize: `${fontSize}px`,
-          textAlign,
-          color: `${color}`,
-          position: position,
-          top: `${top}%`,
-          left: `${left}%`,
-        }}
-        onMouseDown={(e) => {
-          console.log(e, 'on mousedown')
-          setIsDragging(true)
-        }}
-        onMouseMove={(e) => {
-          if (isDragging) {
-            console.log('I am been dragged')
+      <Draggable defaultPosition={{ x: left, y: top }}>
+        <ContentEditable
+          html={text}
+          disabled={!editable}
+          onChange={(e) =>
+            setProp(
+              (props) =>
+                (props.text = e.target.value.replace(/<\/?[^>]+(>|$)/g, '')),
+              500,
+            )
           }
-        }}
-        onMouseUp={(e) => {
-          setIsDragging(false)
-          console.log('dragged ended')
-        }}
-      />
+          tagName="p"
+          style={{
+            fontSize: `${fontSize}px`,
+            textAlign,
+            color: `${color}`,
+            position: position,
+          }}
+        />
+      </Draggable>
     </div>
   )
 }
